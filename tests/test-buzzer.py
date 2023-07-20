@@ -11,4 +11,4 @@ try:
     pMusic.buzzerPlay('do-re-mi-fa')
     pMusic.end()
 except ImportError as e:
-    print('Melody {} not found'.format(str(e)[17:-1]))
+    print(f'Melody {str(e)[17:-1]} not found')
