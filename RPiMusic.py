@@ -34,15 +34,15 @@ class Melody:
     def _calcParams(self, note):
         labels = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
 
-        if len(note) >= 3 and not note[2:3] == ':' and not note[2:3] == ';':
+        if len(note) >= 3 and note[2:3] != ':' and note[2:3] != ';':
             if note[1:2] == 'b':
-                note = labels[labels.index(note[0:1])-1]+note[2:3]
+                note = labels[labels.index(note[:1]) - 1] + note[2:3]
 
             octave = int(note[2:3])*12
-            note = labels.index(note[0:2])
+            note = labels.index(note[:2])
         else:
             octave = int(note[1:2])*12
-            note = labels.index(note[0:1])
+            note = labels.index(note[:1])
 
         freqBase = 16.351 # C0
         magicNumber = 2**(1/12)
@@ -70,10 +70,10 @@ class Melody:
 
             wiringpi2.delay(Music.tempo*beat)
 
-            if note[len(note)-1:] == ':':
+            if note[-1:] == ':':
                 wiringpi2.pwmWrite(self.SPEAKER, 0)
                 wiringpi2.delay(Music.tempo)
-            elif note[len(note)-1:] == ';':
+            elif note[-1:] == ';':
                 wiringpi2.pwmWrite(self.SPEAKER, 0)
                 wiringpi2.delay(int(Music.tempo/2))
 
